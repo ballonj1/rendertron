@@ -27,6 +27,7 @@ const CONFIG_PATH = path.resolve(__dirname, '../config.json');
 
 export type Config = {
     cache: 'datastore' | 'memory' | null;
+    cacheDurationMinutes: number; 
     timeout: number;
     port: string;
     host: string
@@ -38,6 +39,7 @@ export type Config = {
 export class ConfigManager {
     public static config: Config = {
         cache: null,
+        cacheDurationMinutes: 60 * 24,
         timeout: 10000,
         port: '3000',
         host: '0.0.0.0',

@@ -48,7 +48,8 @@ export class Rendertron {
     // Optionally enable cache for rendering requests.
     if (this.config.cache === 'datastore') {
       const { DatastoreCache } = await import('./datastore-cache');
-      this.app.use(new DatastoreCache().middleware());
+      const cacheDurationMinutes = this.config.cacheDurationMinutes;
+      this.app.use(new DatastoreCache(cacheDurationMinutes).middleware());
     } else if (this.config.cache === 'memory') {
       const { MemoryCache } = await import('./memory-cache');
       this.app.use(new MemoryCache().middleware());

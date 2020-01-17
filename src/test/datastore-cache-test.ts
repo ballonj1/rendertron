@@ -26,7 +26,7 @@ import {DatastoreCache} from '../datastore-cache';
 
 const app = new Koa();
 const server = request(app.listen());
-const cache = new DatastoreCache();
+const cache = new DatastoreCache(60 * 24);
 
 app.use(route.get('/compressed', koaCompress()));
 

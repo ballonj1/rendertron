@@ -37,6 +37,11 @@ type DatastoreObject = {
 
 export class DatastoreCache {
   datastore: Datastore = new Datastore();
+  cacheDurationMinutes: number;
+
+  constructor(cacheDurationMinutes: number) {
+    this.cacheDurationMinutes = cacheDurationMinutes;
+  }
 
   async clearCache() {
     const query = this.datastore.createQuery('Page');
@@ -51,7 +56,7 @@ export class DatastoreCache {
   }
 
   async cacheContent(key: DatastoreKey, headers: {}, payload: Buffer) {
-    const cacheDurationMinutes = 60 * 24;
+    const cacheDurationMinutes = this.cacheDurationMinutes;
     const now = new Date();
     const entity = {
       key: key,

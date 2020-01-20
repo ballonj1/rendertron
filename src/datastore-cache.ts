@@ -104,6 +104,16 @@ export class DatastoreCache {
       let cacheKey = ctx.url
           .replace(/&?refreshCache=(?:true|false)&?/i, '');
 
+      if (process.env.FIND_KEY_SEGMENT && process.env.REPLACEMENT_KEY_SEGMENT) {
+        const re = new RegExp(process.env.FIND_KEY_SEGMENT);
+
+        cacheKey = cacheKey.replace(
+          re, 
+          process.env.REPLACEMENT_KEY_SEGMENT
+        );
+      }
+      console.log('Cache key:' + cacheKey);
+
       if (cacheKey.charAt(cacheKey.length - 1) === '?') {
         cacheKey = cacheKey.slice(0, -1);
       }

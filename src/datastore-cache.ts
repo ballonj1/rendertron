@@ -103,16 +103,14 @@ export class DatastoreCache {
       // cached separately (except for refreshCache parameter)
       let cacheKey = ctx.url
           .replace(/&?refreshCache=(?:true|false)&?/i, '');
-
-      if (process.env.FIND_KEY_SEGMENT && process.env.REPLACEMENT_KEY_SEGMENT) {
-        const re = new RegExp(process.env.FIND_KEY_SEGMENT);
-
-        cacheKey = cacheKey.replace(
-          re, 
-          process.env.REPLACEMENT_KEY_SEGMENT
-        );
+      if (process.env.hasOwnProperty('FIND_KEY_SEGMENT')
+          && process.env.hasOwnProperty('REPLACEMENT_KEY_SEGMENT')) {
+        const re = new RegExp(process.env.FIND_KEY_SEGMENT as string);
+        cacheKey = cacheKey.replace(re, process.env.REPLACEMENT_KEY_SEGMENT as string);
       }
       console.log('Cache key:' + cacheKey);
+      console.log('Environment:');
+      console.log(process.env);
 
       if (cacheKey.charAt(cacheKey.length - 1) === '?') {
         cacheKey = cacheKey.slice(0, -1);

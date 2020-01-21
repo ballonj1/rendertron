@@ -109,8 +109,6 @@ export class DatastoreCache {
         cacheKey = cacheKey.replace(re, process.env.REPLACEMENT_KEY_SEGMENT as string);
       }
       console.log('Cache key:' + cacheKey);
-      console.log('Environment:');
-      console.log(process.env);
 
       if (cacheKey.charAt(cacheKey.length - 1) === '?') {
         cacheKey = cacheKey.slice(0, -1);
